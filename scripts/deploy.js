@@ -8,9 +8,15 @@ const hre = require("hardhat");
 
 
 async function main() {
-  const MyToken = await hre.ethers.getContractFactory("ERC1155");
-  const mytoken = await MyToken.deploy();
-  console.log("contract address" ,await mytoken.getAddress());
+  const mytoken = await hre.ethers.deployContract("MyToken", ["https://coral-genetic-sparrow-90.mypinata.cloud/ipfs/QmehY4rPC4dc7WuFMTxnUbNHCTGZNax3w18NX3HAJsemrx", 1000]);
+
+  await mytoken.waitForDeployment();
+
+  console.log("Contract deployed at address: ", await mytoken.getAddress());
+
+  // const MyToken = await hre.ethers.getContractFactory("ERC1155");
+  // const mytoken = await MyToken.deploy();
+  // console.log("contract address" ,await mytoken.getAddress());
 }
 
 // We recommend this pattern to be able to use async/await everywhere
